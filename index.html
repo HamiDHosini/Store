@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>فروشگاه پیشرفته</title>
+    <style>
+        .loader {
+            display: none; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000; 
+        }
+
+           .navbar {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-outline-red{
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar .nav-link, .navbar .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .navbar .nav-link:hover {
+            color: #333 !important;
+        }
+        
+        footer {
+            background: #222;
+            color: #ddd;
+            padding: 20px 0;
+        }
+        footer .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+        footer .social-icons a:hover {
+            color: #ff7e5f;
+        }
+        footer .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer .footer-links a:hover {
+            color: #ff7e5f;
+        }
+        /* Custom Modal Styles */
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 20px 25px;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-footer {
+    padding: 20px 25px;
+    border-top: none;
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">فروشگاه</a>
+            <button class="btn btn-outline-red me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">محصولات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">درباره ما</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Panel.html">پنل مدیریت</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
+
+<div class="container mt-5">
+    <h1 class="my-4 text-warning">محصولات</h1>
+    <div class="position-relative">
+        <div class="loader" id="loader">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">در حال بارگذاری...</span>
+            </div>
+        </div>
+        <div class="row" id="product-list"></div>
+    </div>
+
+    <div class="offcanvas offcanvas-end w-100" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasCartLabel">سبد خرید</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="cart-items">
+        </div>
+        <div class="offcanvas-footer">
+            <h5>جمع کل: <span id="total-price">0 افغانی</span></h5>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0 footer-links">
+                <h5>فروشگاه</h5>
+                <p>فروشگاه آنلاین محصولات برتر با کیفیت عالی و قیمت مناسب.</p>
+                <a href="#">درباره ما</a> | 
+                <a href="#">تماس با ما</a> | 
+                <a href="#">سیاست حریم خصوصی</a>
+            </div>
+
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-center social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background: #111;">
+        © 2024 فروشگاه. تمامی حقوق محفوظ است.
+    </div>
+</footer>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+</div>
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header btn-outline-red text-white">
+                <h5 class="modal-title" id="productModalLabel">جزئیات محصول</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row ">
+
+                    <div class="col-12 justify-content-center align-items-center d-flex flex-column">
+                        <h5 id="productName" class="text-warning"></h5>
+                        <p id="productDescription"></p>
+                        <p>قیمت: <span id="productPrice"></span> افغانی</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+import { getFirestore, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBXUbTrCM3YYupl7s6yvTTE2_3RIoHFEig",
+        authDomain: "products-90dea.firebaseapp.com",
+        projectId: "products-90dea",
+        storageBucket: "products-90dea.appspot.com",
+        messagingSenderId: "966199056234",
+        appId: "1:966199056234:web:5bb415bd90102864b27713",
+        measurementId: "G-94RQH65V2T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let products = [];
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+
+function fetchProducts() {
+    try {
+        document.getElementById('loader').style.display = 'block';
+
+        const productsCollection = collection(db, "products");
+        onSnapshot(productsCollection, (querySnapshot) => {
+            products = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            displayProducts();
+            updateCart();
+        });
+
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+        }, 2000); 
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        showToast(` به سبد خرید اضافه شد!`, 'danger');
+
+        alert('خطا در بارگذاری محصولات. لطفا دوباره تلاش کنید.');
+    }
+}
+    function displayProducts() {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
+        products.forEach((product, i) => {
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4 mb-4';
+            col.innerHTML = `
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">قیمت: ${product.price.toLocaleString()} افغانی</p>
+                        <a class="btn btn-outline-warning add-to-cart" data-index="${i}">
+                <i class="fas fa-shopping-cart fa-lg add-to-cart" data-index="${i}"></i>
+
+                            </a>
+                        <button class="btn btn-outline-dark view-details" data-index="${i}" data-bs-toggle="modal" data-bs-target="#productModal">مشاهده جزئیات</button>
+                    </div>
+                </div>
+            `;
+            productList.appendChild(col);
+        });
+
+        document.querySelectorAll('.view-details').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const index = event.target.getAttribute('data-index');
+            const product = products[index];
+
+
+            document.getElementById('productName').innerText = product.name;
+            document.getElementById('productDescription').innerText = product.description;
+            document.getElementById('productPrice').innerText = product.price.toLocaleString();
+        });
+    });
+}
+
+
+    function showToast(message, type) {
+        const toastContainer = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-${type} bg-light border`;
+        toast.role = "alert";
+        toast.setAttribute("aria-live", "assertive");
+        toast.setAttribute("aria-atomic", "true");
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close m-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        toastContainer.appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3000 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+
+    // Add product to cart
+    document.getElementById('product-list').addEventListener('click', (event) => {
+        if (event.target.classList.contains('add-to-cart')) {
+            const index = event.target.getAttribute('data-index');
+            const product = products[index];
+            const existingItem = cart.find(item => item.name === product.name);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            saveCart();
+            updateCart();
+            showToast(`${product.name} به سبد خرید اضافه شد!`, 'success');
+        }
+    });
+
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+
+    function updateCart() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        let totalPrice = 0;
+
+        cart.forEach(item => {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'row mb-2';
+    itemDiv.innerHTML = `
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${item.name}</h5>
+                    <p class="card-text">قیمت: ${item.price ? item.price.toLocaleString() : 'نامشخص'} افغانی</p>
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-secondary decrease-quantity" data-name="${item.name}">-</button>
+                        <span class="mx-3">تعداد: <span class="item-quantity">${item.quantity}</span></span>
+                        <button class="btn btn-secondary increase-quantity" data-name="${item.name}">+</button>
+                    </div>
+                    <p class="mt-2">مجموع: <span class="item-total">${item.price ? (item.price * item.quantity).toLocaleString() : 'نامشخص'} افغانی</span></p>
+                    <button class="btn btn-danger remove-item" data-name="${item.name}">حذف</button>
+                </div>
+            </div>
+        </div>
+    `;
+    cartItemsContainer.appendChild(itemDiv);
+
+    if (item.price) {
+        totalPrice += item.price * item.quantity;
+    }
+
+            itemDiv.querySelector('.remove-item').addEventListener('click', (event) => {
+                const name = event.target.getAttribute('data-name');
+                const itemIndex = cart.findIndex(cartItem => cartItem.name === name);
+                if (itemIndex > -1) {
+                    cart.splice(itemIndex, 1);
+                    saveCart();
+                    updateCart();
+                    showToast(`${name} از سبد خرید حذف شد.`, 'danger');
+                }
+            });
+
+ 
+            itemDiv.querySelector('.increase-quantity').addEventListener('click', (event) => {
+                const name = event.target.getAttribute('data-name');
+                const cartItem = cart.find(item => item.name === name);
+                cartItem.quantity += 1;
+                saveCart();
+                updateCart();
+                showToast(`تعداد ${cartItem.name} افزایش یافت.`, 'success');
+            });
+
+
+            itemDiv.querySelector('.decrease-quantity').addEventListener('click', (event) => {
+                const name = event.target.getAttribute('data-name');
+                const cartItem = cart.find(item => item.name === name);
+                if (cartItem.quantity > 1) {
+                    cartItem.quantity -= 1;
+                } else {
+                    const itemIndex = cart.findIndex(item => item.name === name);
+                    if (itemIndex > -1) {
+                        cart.splice(itemIndex, 1);
+                    }
+                }
+                saveCart();
+                updateCart();
+                showToast(`تعداد ${cartItem.name} کاهش یافت.`, 'warning');
+            });
+        })
+
+
+        document.getElementById('total-price').innerText = `${totalPrice.toLocaleString()} افغانی`;
+    }
+
+
+    fetchProducts();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
